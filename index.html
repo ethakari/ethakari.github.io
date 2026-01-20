@@ -25,8 +25,12 @@
   </head>
 
   <body class="bg-[#242424] text-white min-h-screen">
-    <nav class="md:w-fit md:flex md:top-0 md:left-0 bg-[#323232] p-4 fixed bottom-0 left-0 w-full">
-      <div class="md:mt-20 md:flex md:justify-start md:gap-20 md:w-fit md:flex-col max-w-6xl mx-auto flex justify-around">
+    <nav
+      class="md:w-fit md:flex md:top-0 md:left-0 bg-[#323232] p-4 fixed bottom-0 left-0 w-full"
+    >
+      <div
+        class="md:mt-20 md:flex md:justify-start md:gap-20 md:w-fit md:flex-col max-w-6xl mx-auto flex justify-around"
+      >
         <a href="index.html">
           <img
             src="assets/home-icon.svg"
@@ -52,8 +56,29 @@
     </nav>
 
     <!-- Page Content -->
-    <main class="max-w-6xl mx-auto p-6">
-      <!-- Content goes here -->
+    <main class="md:w-auto md:mx-auto md:p-6 md:ml-16 m-0 p-10">
+      <div class="flex flex-col items-center rounded-md p-4">
+        <div class="flex flex-col max-w-7xl bg-[#121212] w-full rounded-md p-10">
+          <p class="flex text-4xl pt-12 pb-6 font-[600]">School Lost & Found</p>
+          <p class="flex pb-4 text-[#9EA3AE]">
+            X items found &#8226; Help reunite lost belongings with their
+            owners!!
+          </p>
+          <div>
+            <div>filters</div>
+            <input
+              type="text"
+              id="search"
+              name="search"
+              placeholder="Search for an item..."
+              class="w-full p-2 rounded-md bg-[#242424] mb-6"
+            />
+          </div>
+          <div>
+            dynamically added items
+          </div>
+        </div>
+      </div>
     </main>
   </body>
 </html>
