@@ -25,7 +25,7 @@
 
   <body class="bg-[#121212] text-white min-h-screen">
     <nav
-      class="md:w-fit md:flex md:top-0 md:left-0 bg-[#323232] p-4 fixed bottom-0 left-0 w-full"
+      class="md:w-fit md:flex md:top-0 md:left-0 bg-[#333333] p-4 fixed bottom-0 left-0 w-full"
     >
       <div
         class="md:mt-20 md:flex md:justify-start md:gap-20 md:w-fit md:flex-col max-w-6xl mx-auto flex justify-around"
@@ -58,30 +58,39 @@
     <main class="md:w-auto md:mx-auto md:p-6 md:ml-16 m-0 p-10">
       <div class="flex flex-col items-center rounded-md p-4">
         <div
-          class="flex flex-col max-w-7xl bg-[#121212] w-full rounded-md p-10"
+          class="flex flex-col max-w-7xl bg-[#121212] w-full rounded-md p-0 md:p-10"
         >
           <p class="flex text-4xl pt-12 pb-6 font-[600]">School Lost & Found</p>
           <p id="item-count" class="flex pb-4 text-[#9EA3AE]">
             0 items found • Help reunite lost belongings with their owners!!
           </p>
-          <div class="flex flex-row gap-4">
-            <input
-              type="text"
-              id="search"
-              name="search"
-              placeholder="Search items..."
-              class="border border-[#404040] text-sm w-full h-[40px] pl-10 rounded-xl bg-[#1e1e1e] bg-no-repeat bg-[position:15px_50%] bg-[url('assets/search-icon.svg')]"
-            />
-            <div
-              class="flex text-center bg-[#1e1e1e] w-auto h-[40px] pt-2 pb-2 pl-7 pr-7 rounded-xl text-white text-sm cursor-pointer border border-[#404040]"
-            >
-              Clear
+          <div class="md:flex-row flex flex-col gap-4">
+            <div class="flex flex-row gap-4 w-full">
+              <input
+                type="text"
+                id="search"
+                name="search"
+                placeholder="Search items..."
+                class="border border-[#404040] text-sm w-full h-[40px] pl-10 rounded-xl bg-[#1e1e1e] bg-no-repeat bg-[position:15px_50%] bg-[url('assets/search-icon.svg')]"
+              />
+              <div
+                id="clear-search"
+                class="flex text-center bg-[#1e1e1e] w-auto h-[40px] pt-2 pb-2 pl-7 pr-7 rounded-xl text-white text-sm cursor-pointer border border-[#404040]"
+              >
+                Clear
+              </div>
             </div>
-            <div
-              class="flex justify-center text-center bg-white w-60 h-[40px] pt-2 pb-2 pl-4 pr-4 rounded-xl text-black text-sm cursor-pointer border border-black"
+            <a
+              href="report.html"
+              class="flex flex-row gap-2 justify-center text-center bg-white w-full md:w-60 h-[40px] pt-2 pb-2 pl-4 pr-4 rounded-xl text-black text-sm cursor-pointer border border-white"
             >
+              <img
+                src="assets/reportplus-icon.svg"
+                alt=""
+                class="w-3 h-3 align-center mt-1"
+              />
               Report Item
-            </div>
+            </a>
           </div>
 
           <div class="flex flex-wrap gap-2 pt-4 pb-8">

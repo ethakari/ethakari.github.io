@@ -10,6 +10,12 @@ const searchInput = document.getElementById("search");
 const itemCount = document.getElementById("item-count");
 const selectedCategories = new Set(["all"]);
 const categoryButtons = document.querySelectorAll(".category-btn");
+const clearBtn = document.getElementById("clear-search");
+
+clearBtn.addEventListener("click", () => {
+  searchInput.value = "";
+  applyFilters();
+});
 
 function activateButton(btn) {
   btn.classList.add("bg-[#262626]", "text-white", "border-[#404040]");
@@ -96,6 +102,8 @@ function renderItems(items) {
     <p class="text-gray-600">${item.description}</p>
     <p class="text-sm text-gray-500">Found: ${item.dateFound.toDate().toLocaleDateString("en-US")}</p>
     <p class="text-sm text-black">Tags: ${item.tags?.join(", ")}</p>
+    <p class="text-sm text-gray-500">Status: ${item.status}</p>
+    <p class="text-sm text-gray-500">Location Found: ${item.location}</p>
   `;
 
     container.appendChild(div);
