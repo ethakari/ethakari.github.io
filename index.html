@@ -64,18 +64,80 @@
           <p id="item-count" class="flex pb-4 text-[#9EA3AE]">
             0 items found • Help reunite lost belongings with their owners!!
           </p>
-          <input
-            type="text"
-            id="search"
-            name="search"
-            placeholder="Search items..."
-            class="w-full p-2 pl-10 rounded-xl bg-[#242424] bg-no-repeat bg-[position:15px_50%] bg-[url('assets/search-icon.svg')]"
-          />
-          <div class="flex flex-wrap pt-6 pb-6">
-            <div>
-              filter icon
+          <div class="flex flex-row gap-4">
+            <input
+              type="text"
+              id="search"
+              name="search"
+              placeholder="Search items..."
+              class="border border-[#404040] text-sm w-full h-[40px] pl-10 rounded-xl bg-[#1e1e1e] bg-no-repeat bg-[position:15px_50%] bg-[url('assets/search-icon.svg')]"
+            />
+            <div
+              class="flex text-center bg-[#1e1e1e] w-auto h-[40px] pt-2 pb-2 pl-7 pr-7 rounded-xl text-white text-sm cursor-pointer border border-[#404040]"
+            >
+              Clear
             </div>
-            <div class="flex text-center bg-[#262626] p-2 rounded-xl text-white text-sm">All Categories</div>
+            <div
+              class="flex justify-center text-center bg-white w-60 h-[40px] pt-2 pb-2 pl-4 pr-4 rounded-xl text-black text-sm cursor-pointer border border-black"
+            >
+              Report Item
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 pt-4 pb-8">
+            <img
+              src="assets/filter-icon.svg"
+              alt="Report"
+              class="w-[28px] h-[24px] mt-[6px]"
+            />
+            <div
+              data-category="all"
+              class="category-btn flex text-center bg-[#262626] pt-2 pb-2 pl-4 pr-4 rounded-xl text-white text-sm cursor-pointer border border-[#404040]"
+            >
+              All Categories
+            </div>
+            <div
+              data-category="electronics"
+              class="category-btn flex text-center bg-[#1e1e1e] pt-2 pb-2 pl-4 pr-4 rounded-xl text-[#9EA3AE] text-sm cursor-pointer border border-transparent"
+            >
+              Electronics
+            </div>
+            <div
+              data-category="bags"
+              class="category-btn flex text-center bg-[#1e1e1e] pt-2 pb-2 pl-4 pr-4 rounded-xl text-[#9EA3AE] text-sm cursor-pointer border border-transparent"
+            >
+              Bags & Backpacks
+            </div>
+            <div
+              data-category="books"
+              class="category-btn flex text-center bg-[#1e1e1e] pt-2 pb-2 pl-4 pr-4 rounded-xl text-[#9EA3AE] text-sm cursor-pointer border border-transparent"
+            >
+              Books & Supplies
+            </div>
+            <div
+              data-category="clothing"
+              class="category-btn flex text-center bg-[#1e1e1e] pt-2 pb-2 pl-4 pr-4 rounded-xl text-[#9EA3AE] text-sm cursor-pointer border border-transparent"
+            >
+              Clothing
+            </div>
+            <div
+              data-category="water"
+              class="category-btn flex text-center bg-[#1e1e1e] pt-2 pb-2 pl-4 pr-4 rounded-xl text-[#9EA3AE] text-sm cursor-pointer border border-transparent"
+            >
+              Water Bottles
+            </div>
+            <div
+              data-category="sports"
+              class="category-btn flex text-center bg-[#1e1e1e] pt-2 pb-2 pl-4 pr-4 rounded-xl text-[#9EA3AE] text-sm cursor-pointer border border-transparent"
+            >
+              Sports Equipment
+            </div>
+            <div
+              data-category="other"
+              class="category-btn flex text-center bg-[#1e1e1e] pt-2 pb-2 pl-4 pr-4 rounded-xl text-[#9EA3AE] text-sm cursor-pointer border border-transparent"
+            >
+              Other
+            </div>
           </div>
           <div
             id="items-container"
