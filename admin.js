@@ -3,9 +3,17 @@ import {
   getDocs,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { db } from "/firebase.js";
+import { formatForDisplay } from "./modify-text.js";
 
 let allItems = [];
+let pendingItemCount = 0;
+let totalItemCount = 0;
 const container = document.getElementById("admin-items");
+const pendingCountElement = document.getElementById("pending-items");
+const pendingClaimElement = document.getElementById("pending-claims");
+const totalItemCountElement = document.getElementById("total-items");
+
+
 
 async function loadItems() {
   const itemsRef = collection(db, "itemId");
@@ -26,6 +34,7 @@ async function loadItems() {
 function renderItems(items) {
   // generate HTML for each card
   container.innerHTML = "";
+  pendingItemCount = 0;
 
   items.forEach((item) => {
     const div = document.createElement("div");
@@ -47,18 +56,24 @@ function renderItems(items) {
         />
     </div>
     <div class="flex flex-col pt-4 pb-4 gap-2 w-[calc(100%-160px)]"> 
-        <div class="text-lg font-[500] text-white">${item.name}</div>
-        <div class="text-sm text-[#9CA3AF]">${item.description}</div>
+        <div class="text-lg font-[500] text-white">${formatForDisplay(item.name)}</div>
+        <div class="text-sm text-[#9CA3AF]">${formatForDisplay(item.description)}</div>
         <div class="flex flex-row">
             <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Category</div>
-            <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Location: ${item.location}</div>
+            <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Location: ${formatForDisplay(item.location)}</div>
             <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Date Found: ${item.dateFound.toDate().toLocaleDateString("en-US")}</div>
         </div>
     </div>
   `;
 
+    if(item.status === "pending"){
+      pendingItemCount++;
+    }
     container.appendChild(div);
   });
+  totalItemCount = items.length;
+  totalItemCountElement.textContent = totalItemCount;
+  pendingCountElement.textContent = pendingItemCount;
 }
 
 loadItems();

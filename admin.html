@@ -204,34 +204,81 @@
     <!-- Page Content -->
     <main class="md:w-auto md:mx-auto md:p-6 md:ml-16 m-0 p-10">
       <div class="flex flex-col items-center p-4">
-        <div class="flex flex-col gap-6 max-w-[88%] bg-[#121212] w-full p-0 md:p-10">
-          <p class="flex text-4xl pt-12  font-[600]">Admin Dashboard</p>
+        <div
+          class="flex flex-col gap-6 max-w-[88%] bg-[#121212] w-full p-0 md:p-10"
+        >
+          <p class="flex text-4xl pt-12 font-[600]">Admin Dashboard</p>
           <p class="flex text-[#9EA3AE]">
             Manage found items and claim requests
           </p>
           <div class="flex flex-row gap-4">
-            <div class="flex flex-col w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl">
-                pending
+            <div
+              class="flex flex-row justify-between w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
+            >
+              <div id="pending-items" class="flex text-[30px] font-[600]">
+                0
+              </div>
+              <div class="flex flex-row h-10 self-center items-center">
+                <div class="text-[#9CA3AF] text-sm">Pending Items</div>
+                <div class="flex bg-[#35291E] rounded-xl w-10 h-10 ml-4">
+                  <img
+                    src="assets/clock-icon.svg"
+                    alt="reports"
+                    class="w-5 h-5 m-auto"
+                  />
+                </div>
+              </div>
             </div>
-            <div class="flex flex-col w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl">
-                pending
+            <div
+              class="flex flex-row justify-between w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
+            >
+              <div id="pending-claims" class="flex text-[30px] font-[600]">
+                0
+              </div>
+              <div class="flex flex-row h-10 self-center items-center">
+                <div class="text-[#9CA3AF] text-sm">Pending Claims</div>
+                <div class="flex bg-[#20263D] rounded-xl w-10 h-10 ml-4">
+                  <img
+                    src="assets/alert-icon.svg"
+                    alt="claims"
+                    class="w-5 h-5 m-auto"
+                  />
+                </div>
+              </div>
             </div>
-            <div class="flex flex-col w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl">
-                pending
+            <div
+              class="flex flex-row justify-between w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
+            >
+              <div id="total-items" class="flex text-[30px] font-[600]">
+                0
+              </div>
+              <div class="flex flex-row h-10 self-center items-center">
+                <div class="text-[#9CA3AF] text-sm">Total Items</div>
+                <div class="flex bg-[#212E24] rounded-xl w-10 h-10 ml-4">
+                  <img
+                    src="assets/check-icon.svg"
+                    alt="totals"
+                    class="w-5 h-5 m-auto"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="flex flex-row items-center justify-center gap-4 bg-[#1e1e1e] rounded-xl h-[46px]">
-            <button class="flex text-[16px] items-center justify-center bg-[#262626] border border-[#404040] rounded-xl h-9 w-[49%]">
-                Found Items (X)
-            </button> 
-            <button class="flex text-[16px] text-[#9EA3AE] items-center justify-center bg-transparent border-none border-[#404040] rounded-xl h-9 w-[49%]">
-                Claim Requests (Y)
-            </button>
           </div>
           <div
-            id="admin-items"
-            class="gap-6 grid grid-cols-1"
+            class="flex flex-row items-center justify-center gap-4 bg-[#1e1e1e] rounded-xl h-[46px]"
           >
+            <button
+              class="flex text-[16px] items-center justify-center bg-[#262626] border border-[#404040] rounded-xl h-9 w-[49%]"
+            >
+              Found Items (X)
+            </button>
+            <button
+              class="flex text-[16px] text-[#9EA3AE] items-center justify-center bg-transparent border-none border-[#404040] rounded-xl h-9 w-[49%]"
+            >
+              Claim Requests (Y)
+            </button>
+          </div>
+          <div id="admin-items" class="gap-6 grid grid-cols-1">
             <!-- Items will be dynamically loaded here -->
           </div>
         </div>

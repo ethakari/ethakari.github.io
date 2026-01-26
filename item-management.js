@@ -3,6 +3,7 @@ import {
   getDocs,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { db } from "/firebase.js";
+import { formatForDisplay } from "./modify-text.js";
 
 
 let allItems = [];
@@ -121,9 +122,9 @@ function renderItems(items) {
       class="w-full h-[250px] object-cover rounded-t-xl"
     />
     <div class="p-3 border-t border-[#5B5B5B]"> 
-    <p class="text-lg font-[500] text-white">${item.name}</p>
+    <p class="text-lg font-[500] text-white">${formatForDisplay(item.name)}</p>
     <p class="text-sm text-[#D2D5DB]">Found: ${item.dateFound.toDate().toLocaleDateString("en-US")}</p>
-    <p class="text-sm text-[#D2D5DB]">Location Found: ${item.location}</p>
+    <p class="text-sm text-[#D2D5DB]">Location Found: ${formatForDisplay(item.location)}</p>
     </div>
   `;
 
@@ -168,12 +169,12 @@ function openModal(itemId) {
   if (!item) return;
 
   // populate modal
-  document.getElementById("item-title").textContent = item.name;
+  document.getElementById("item-title").textContent = formatForDisplay(item.name);
   document.getElementById("item-image").src =
     item.imageUrl || "/assets/image-unavailable.png";
   document.getElementById("item-description").textContent =
-    item.description || "No description provided";
-  document.getElementById("item-location").textContent = item.location;
+    formatForDisplay(item.description) || "No description provided";
+  document.getElementById("item-location").textContent = formatForDisplay(item.location);
   document.getElementById("item-date").textContent = item.dateFound
     .toDate()
     .toLocaleDateString("en-US");
