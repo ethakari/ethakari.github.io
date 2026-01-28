@@ -24,155 +24,8 @@
   </head>
 
   <body class="bg-[#121212] text-white min-h-screen">
-    <div
-      id="item-modal"
-      class="fixed inset-0 flex justify-center align-center hidden bg-black bg-opacity-80 z-50 p-4"
-    >
-      <div
-        class="w-[75%] h-auto bg-transparent flex flex-col gap-4 pl-10 pr-10"
-      >
-        <div
-          class="close-modal cursor-pointer text-[#9CA3AF] pt-2 pb-2 flex flex-row"
-        >
-          <img
-            src="assets/return-home.svg"
-            alt="Home"
-            class="w-4 h-4 mt-1 mr-2"
-          />
-          Back
-        </div>
-        <div class="flex flex-row gap-6 bg-transparent">
-          <div class="flex flex-col w-[50%]">
-            <img
-              id="item-image"
-              class="w-full flex border border-[#333333] rounded-xl"
-            />
-          </div>
-
-          <div class="flex flex-col gap-6 w-[50%]">
-            <div
-              class="flex flex-col gap-2 bg-[#1e1e1e] border border-[#333333] rounded-xl p-6"
-            >
-              <div id="item-title" class="text-3xl font-bold">title</div>
-              <div
-                id="item-description"
-                class="text-sm text-[#9CA3AF] pb-6 pt-4"
-              >
-                description
-              </div>
-              <div class="flex flex-row gap-2">
-                <div
-                  class="flex w-[40px] h-[40px] justify-center align-center items-center bg-[#262626] rounded-xl"
-                >
-                  <img
-                    src="assets/tag-icon.svg"
-                    alt="tag"
-                    class="w-[24px] h-[24px] mt-[2px] ml-[2px]"
-                  />
-                </div>
-                <div class="flex flex-col">
-                  <div class="text-[10px] text-[#666666] mt-[2px]">
-                    Item Tags
-                  </div>
-                  <div id="item-tags" class="text-[12px] text-white">tags</div>
-                </div>
-              </div>
-              <div class="flex flex-row gap-2">
-                <div
-                  class="flex w-[40px] h-[40px] justify-center align-center items-center bg-[#262626] rounded-xl"
-                >
-                  <img
-                    src="assets/location-icon.svg"
-                    alt="tag"
-                    class="w-[24px] h-[24px] mt-[2px] ml-[2px]"
-                  />
-                </div>
-                <div class="flex flex-col justify-center">
-                  <div class="text-[10px] text-[#666666]">Location Found</div>
-                  <div id="item-location" class="text-[12px] text-white">
-                    location
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-row gap-2">
-                <div
-                  class="flex w-[40px] h-[40px] justify-center align-center items-center bg-[#262626] rounded-xl"
-                >
-                  <img
-                    src="assets/calender-icon.svg"
-                    alt="tag"
-                    class="w-[24px] h-[24px] mt-[2px] ml-[2px]"
-                  />
-                </div>
-                <div class="flex flex-col justify-center">
-                  <div class="text-[10px] text-[#666666]">Date Found</div>
-                  <div id="item-date" class="text-[12px] text-white">date</div>
-                </div>
-              </div>
-            </div>
-            <form
-              id="claim-form"
-              class="flex flex-col gap-4 bg-[#1e1e1e] border border-[#333333] rounded-xl p-6"
-            >
-              <div class="flex text-[20px] text-white font-[500]">
-                Submit Claim Request
-              </div>
-              <div class="flex flex-col gap-2">
-                <label for="claim-name" class="text-sm">Your Name *</label>
-                <input
-                  id="claim-name"
-                  class="flex flex-row bg-[#121212] border border-[#404040] rounded-xl p-2"
-                  placeholder=" "
-                />
-              </div>
-              <div class="flex flex-col gap-2">
-                <label for="claim-email" class="text-sm">Your Email *</label>
-                <input
-                  id="claim-email"
-                  class="flex flex-row bg-[#121212] border border-[#404040] rounded-xl p-2"
-                  placeholder=" "
-                />
-              </div>
-              <div class="flex flex-col gap-2">
-                <label for="claim-phone" class="text-sm"
-                  >Phone Number (Optional)</label
-                >
-                <input
-                  id="claim-phone"
-                  class="flex flex-row bg-[#121212] border border-[#404040] rounded-xl p-2"
-                  placeholder=" "
-                />
-              </div>
-              <div class="flex flex-col gap-2">
-                <label for="claim-proof" class="text-sm"
-                  >Proof of Ownership *</label
-                >
-                <textarea
-                  id="claim-proof"
-                  class="placeholder-[#6D727F] text-white flex flex-row bg-[#121212] border border-[#404040] rounded-xl p-2"
-                  placeholder="Describe how you can prove this item is yours (unique features, receipts, etc.)"
-                ></textarea>
-              </div>
-              <div class="flex flex-row gap-2">
-                <div
-                  class="close-modal cursor-pointer border border-[#404040] rounded-xl w-[50%] pt-2 pb-2 text-center"
-                >
-                  Cancel
-                </div>
-                <button
-                  id="submit-claim"
-                  class="border rounded-xl w-[50%] pt-2 pb-2 text-center text-black bg-white"
-                >
-                  Submit Claim
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
     <nav
-      class="md:w-fit md:flex md:top-0 md:left-0 bg-[#333333] p-4 fixed bottom-0 left-0 w-full"
+      class="md:w-fit md:flex md:top-0 md:left-0 bg-[#333333] p-4 fixed bottom-0 left-0 w-full z-20"
     >
       <div
         class="md:mt-20 md:flex md:justify-start md:gap-20 md:w-fit md:flex-col max-w-6xl mx-auto flex justify-around"
@@ -191,7 +44,7 @@
             class="w-[33px] h-8 rounded-md hover:bg-[#404040] p-1"
           />
         </a>
-        <a href="admin.html">
+        <a href="login.html">
           <img
             src="assets/settings-icon.svg"
             alt="Admin"
@@ -207,7 +60,21 @@
         <div
           class="flex flex-col gap-6 max-w-[88%] bg-[#121212] w-full p-0 md:p-10"
         >
-          <p class="flex text-4xl pt-12 font-[600]">Admin Dashboard</p>
+          <div class="flex flex-row justify-between">
+            <a
+              href="index.html"
+              class="text-[#9CA3AF] pt-12 pb-2 flex flex-row"
+            >
+              <img
+                src="assets/return-home.svg"
+                alt="home"
+                class="w-4 h-4 mt-1 mr-2"
+              />
+              Back to home
+            </a>
+            <button id="logout" class="mt-10 p-2 flex border border-[#404040] rounded-xl bg-[#1e1e1e]">Log out</button>
+          </div>
+          <p class="flex text-4xl pt-4 font-[600]">Admin Dashboard</p>
           <p class="flex text-[#9EA3AE]">
             Manage found items and claim requests
           </p>
@@ -249,9 +116,7 @@
             <div
               class="flex flex-row justify-between w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
             >
-              <div id="total-items" class="flex text-[30px] font-[600]">
-                0
-              </div>
+              <div id="total-items" class="flex text-[30px] font-[600]">0</div>
               <div class="flex flex-row h-10 self-center items-center">
                 <div class="text-[#9CA3AF] text-sm">Total Items</div>
                 <div class="flex bg-[#212E24] rounded-xl w-10 h-10 ml-4">
@@ -265,15 +130,17 @@
             </div>
           </div>
           <div
-            class="flex flex-row items-center justify-center gap-4 bg-[#1e1e1e] rounded-xl h-[46px]"
+            class="flex flex-row items-center justify-center gap-2 bg-[#1e1e1e] rounded-xl h-[46px]"
           >
             <button
+              id="items-tab"
               class="flex text-[16px] items-center justify-center bg-[#262626] border border-[#404040] rounded-xl h-9 w-[49%]"
             >
               Found Items (X)
             </button>
             <button
-              class="flex text-[16px] text-[#9EA3AE] items-center justify-center bg-transparent border-none border-[#404040] rounded-xl h-9 w-[49%]"
+              id="claims-tab"
+              class="flex text-[16px] text-[#9EA3AE] items-center justify-center rounded-xl h-9 w-[49%]"
             >
               Claim Requests (Y)
             </button>

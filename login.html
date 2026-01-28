@@ -35,7 +35,7 @@
         <a href="index.html" class="text-sm text-[#9CA3AF]"
           >Not an administrator? Return to home</a
         >
-        <form class="flex flex-col gap-6 mt-10 mb-2">
+        <form id="admin-login" class="flex flex-col gap-6 mt-10 mb-2">
           <input
             type="text"
             id="admin-email"
@@ -43,19 +43,18 @@
             class="placeholder-[#6D727F] h-11 text-white text-[16px] border border-[#404040] p-2 bg-[#121212] rounded-xl"
           />
           <input
-            type="text"
+            type="password"
             id="admin-password"
             placeholder="  Password"
             class="placeholder-[#6D727F] h-11 text-white text-[16px] border border-[#404040] p-2 bg-[#121212] rounded-xl"
           />
+          <button
+            id="submit"
+            class="w-[80%] h-11 flex self-center items-center justify-center text-black text-center bg-white border rounded-xl"
+          >
+            Login
+          </button>
         </form>
-
-        <div
-          class="w-[80%] h-11 flex self-center items-center justify-center text-black text-center bg-white border rounded-xl"
-        >
-          Login
-        </div>
-
       </div>
     </div>
 

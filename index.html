@@ -26,13 +26,13 @@
   <body class="bg-[#121212] text-white min-h-screen">
     <div
       id="item-modal"
-      class="fixed inset-0 flex justify-center align-center hidden bg-black bg-opacity-80 z-50 p-4"
+      class="fixed inset-0 flex justify-center align-center hidden bg-black bg-opacity-80 z-50 md:p-4 p-0"
     >
       <div
-        class="w-[75%] h-auto bg-transparent flex flex-col gap-4 pl-10 pr-10"
+        class="md:w-[75%] w-[100%] h-auto bg-transparent flex flex-col gap-4 pl-10 pr-10"
       >
         <div
-          class="close-modal cursor-pointer text-[#9CA3AF] pt-2 pb-2 flex flex-row"
+          class="close-modal cursor-pointer text-[#9CA3AF] pt-2 md:pb-2 pb-0 flex flex-row"
         >
           <img
             src="assets/return-home.svg"
@@ -41,19 +41,19 @@
           />
           Back
         </div>
-        <div class="flex flex-row gap-6 bg-transparent">
-          <div class="flex flex-col w-[50%]">
+        <div class="flex flex-col md:flex-row gap-6 bg-transparent">
+          <div class="flex flex-col md:w-[50%] w-full">
             <img
               id="item-image"
-              class="w-full flex border border-[#333333] rounded-xl"
+              class="md:w-full w-10 flex border border-[#333333] rounded-xl"
             />
           </div>
 
-          <div class="flex flex-col gap-6 w-[50%]">
+          <div class="flex flex-col gap-6 md:w-[50%] w-full">
             <div
               class="flex flex-col gap-2 bg-[#1e1e1e] border border-[#333333] rounded-xl p-6"
             >
-              <div id="item-title" class="text-3xl font-bold">title</div>
+              <div id="item-title" class="md:text-3xl text-2xl font-bold">title</div>
               <div
                 id="item-description"
                 class="text-sm text-[#9CA3AF] pb-6 pt-4"
@@ -167,7 +167,7 @@
       </div>
     </div>
     <nav
-      class="md:w-fit md:flex md:top-0 md:left-0 bg-[#333333] p-4 fixed bottom-0 left-0 w-full"
+      class="md:w-fit md:flex md:top-0 md:left-0 bg-[#333333] p-4 fixed bottom-0 left-0 w-full z-20"
     >
       <div
         class="md:mt-20 md:flex md:justify-start md:gap-20 md:w-fit md:flex-col max-w-6xl mx-auto flex justify-around"
@@ -186,7 +186,7 @@
             class="w-[33px] h-8 rounded-md hover:bg-[#404040] p-1"
           />
         </a>
-        <a href="admin.html">
+        <a href="login.html">
           <img
             src="assets/settings-icon.svg"
             alt="Admin"
