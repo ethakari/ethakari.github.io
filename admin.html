@@ -72,7 +72,30 @@
               />
               Back to home
             </a>
-            <button id="logout" class="mt-10 p-2 flex border border-[#404040] rounded-xl bg-[#1e1e1e]">Log out</button>
+            <button
+              id="logout"
+              class="mt-12 text-[#9CA3AF] flex rounded-xl"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="mr-3 mt-[2px]"
+              >
+                <path
+                  d="M1.66663 9.99992L0.885757 9.37522L0.386001 9.99992L0.885757 10.6246L1.66663 9.99992ZM9.16663 10.9999C9.71891 10.9999 10.1666 10.5522 10.1666 9.99992C10.1666 9.44763 9.71891 8.99992 9.16663 8.99992V9.99992V10.9999ZM4.99996 5.83325L4.21909 5.20856L0.885757 9.37522L1.66663 9.99992L2.44749 10.6246L5.78083 6.45795L4.99996 5.83325ZM1.66663 9.99992L0.885757 10.6246L4.21909 14.7913L4.99996 14.1666L5.78083 13.5419L2.44749 9.37522L1.66663 9.99992ZM1.66663 9.99992V10.9999H9.16663V9.99992V8.99992H1.66663V9.99992Z"
+                  fill="#9CA3AF"
+                />
+                <path
+                  d="M8.33337 6.77669V6.61406C8.33337 5.1012 8.33337 4.34477 8.75104 3.80447C8.78753 3.75726 8.82612 3.71171 8.86669 3.66795C9.33097 3.16715 10.0771 3.04279 11.5694 2.79408C14.5988 2.28917 16.1135 2.03672 17.1431 2.81546C17.2313 2.88215 17.3157 2.95366 17.396 3.02967C18.3334 3.91721 18.3334 5.45282 18.3334 8.52404V11.4761C18.3334 14.5473 18.3334 16.083 17.396 16.9705C17.3157 17.0465 17.2313 17.118 17.1431 17.1847C16.1135 17.9634 14.5983 17.7109 11.5679 17.2058C10.0773 16.9574 9.33201 16.8332 8.86798 16.3336C8.82651 16.289 8.7871 16.2424 8.74988 16.1942C8.33337 15.6543 8.33337 14.899 8.33337 13.3884"
+                  stroke="#9CA3AF"
+                  stroke-width="2"
+                />
+              </svg>
+              Log out
+            </button>
           </div>
           <p class="flex text-4xl pt-4 font-[600]">Admin Dashboard</p>
           <p class="flex text-[#9EA3AE]">
@@ -99,6 +122,21 @@
             <div
               class="flex flex-row justify-between w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
             >
+              <div id="listed-items" class="flex text-[30px] font-[600]">0</div>
+              <div class="flex flex-row h-10 self-center items-center">
+                <div class="text-[#9CA3AF] text-sm">Listed Items</div>
+                <div class="flex bg-[#212E24] rounded-xl w-10 h-10 ml-4">
+                  <img
+                    src="assets/check-icon.svg"
+                    alt="totals"
+                    class="w-5 h-5 m-auto"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row justify-between w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
+            >
               <div id="pending-claims" class="flex text-[30px] font-[600]">
                 0
               </div>
@@ -113,36 +151,27 @@
                 </div>
               </div>
             </div>
-            <div
-              class="flex flex-row justify-between w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
-            >
-              <div id="total-items" class="flex text-[30px] font-[600]">0</div>
-              <div class="flex flex-row h-10 self-center items-center">
-                <div class="text-[#9CA3AF] text-sm">Total Items</div>
-                <div class="flex bg-[#212E24] rounded-xl w-10 h-10 ml-4">
-                  <img
-                    src="assets/check-icon.svg"
-                    alt="totals"
-                    class="w-5 h-5 m-auto"
-                  />
-                </div>
-              </div>
-            </div>
           </div>
           <div
-            class="flex flex-row items-center justify-center gap-2 bg-[#1e1e1e] rounded-xl h-[46px]"
+            class="flex flex-row px-1 items-center justify-center gap-2 bg-[#1e1e1e] rounded-xl h-[46px]"
           >
             <button
               id="items-tab"
-              class="flex text-[16px] items-center justify-center bg-[#262626] border border-[#404040] rounded-xl h-9 w-[49%]"
+              class="flex text-[16px] items-center justify-center bg-[#262626] border border-[#404040] rounded-xl h-9 w-[33%]"
             >
-              Found Items (X)
+              Listed and Pending Items (X)
             </button>
             <button
               id="claims-tab"
-              class="flex text-[16px] text-[#9EA3AE] items-center justify-center rounded-xl h-9 w-[49%]"
+              class="flex text-[16px] text-[#9EA3AE] items-center justify-center rounded-xl h-9 w-[33%]"
             >
               Claim Requests (Y)
+            </button>
+            <button
+              id="history-tab"
+              class="flex text-[16px] text-[#9EA3AE] items-center justify-center rounded-xl h-9 w-[33%]"
+            >
+              Claim History
             </button>
           </div>
           <div id="admin-items" class="gap-6 grid grid-cols-1">

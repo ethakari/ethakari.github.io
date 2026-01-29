@@ -3,11 +3,15 @@ import {
   orderBy,
   collection,
   getDocs,
+  addDoc,
+  serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { db } from "/firebase.js";
 import { formatForDisplay } from "./modify-text.js";
 
 let allItems = [];
+let listedItems = [];
+let activeItem = null;
 const container = document.getElementById("items-container");
 const searchInput = document.getElementById("search");
 const itemCount = document.getElementById("item-count");
@@ -15,6 +19,7 @@ const selectedCategories = new Set(["all"]);
 const categoryButtons = document.querySelectorAll(".category-btn");
 const clearBtn = document.getElementById("clear-search");
 const modal = document.getElementById("item-modal");
+const claimForm = document.getElementById("claim-form");
 
 clearBtn.addEventListener("click", () => {
   // clear search bar text
@@ -86,19 +91,26 @@ function deactivateButton(btn) {
 async function loadItems() {
   const itemsRef = collection(db, "itemId");
   const q = query(itemsRef, orderBy("dateFound", "desc"));
-  const snapshot = await getDocs(itemsRef);
+  const snapshot = await getDocs(q);
 
   allItems = [];
+  listedItems = [];
 
   snapshot.forEach((doc) => {
-    allItems.push({
+    const item = {
       id: doc.id,
       ...doc.data(),
-    });
+    };
+    allItems.push(item);
+
+    if(item.status === "listed"){
+      listedItems.push(item);
+    }
+
   });
 
-  renderItems(allItems);
-  itemCount.textContent = `${allItems.length} items found • Help reunite lost belongings with their
+  renderItems(listedItems);
+  itemCount.textContent = `${listedItems.length} items found • Help reunite lost belongings with their
   owners!`;
 }
 
@@ -138,7 +150,7 @@ searchInput.addEventListener("input", applyFilters);
 function applyFilters() {
   const query = searchInput.value.toLowerCase();
 
-  const filtered = allItems.filter((item) => {
+  const filtered = listedItems.filter((item) => {
     // text filter
     const textMatch =
       item.name.toLowerCase().includes(query) ||
@@ -167,8 +179,10 @@ container.addEventListener("click", (e) => {
 });
 
 function openModal(itemId) {
-  const item = allItems.find((i) => i.id === itemId);
+  const item = listedItems.find((i) => i.id === itemId);
   if (!item) return;
+
+  activeItem = item;
 
   const tagsEl = document.getElementById("item-tags");
 
@@ -200,4 +214,43 @@ document.querySelectorAll(".close-modal").forEach((btn) => {
   btn.addEventListener("click", () => {
     modal.classList.add("hidden");
   });
+});
+
+claimForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  if (!activeItem) {
+    alert("No item selected.");
+    return;
+  }
+
+  const claimer = document.getElementById("claim-name").value.trim();
+  const email = document.getElementById("claim-email").value.trim();
+  const phone = document.getElementById("claim-phone").value.trim();
+  const proof = document.getElementById("claim-proof").value.trim();
+
+  if (!claimer || !email || !proof) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "claimId"), {
+      claimer,
+      email,
+      phone: phone || null,
+      proof,
+      status: "pending",
+      submittedOn: serverTimestamp(),
+      itemId: activeItem.id,
+      itemName: activeItem.name,
+    });
+
+    claimForm.reset();
+    modal.classList.add("hidden");
+    alert("Claim submitted successfully!");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to submit claim.");
+  }
 });
