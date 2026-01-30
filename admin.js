@@ -366,7 +366,7 @@ function renderHistory(claims) {
     div.dataset.claimId = claim.id;
 
     div.innerHTML = `
-    <div class="flex flex-col md:w-[160px] w-[250px] justify-center align-center items-center md:p-0 px-4 pt-4">
+    <div class="flex flex-col md:w-[160px] w-[250px] justify-center align-center items-center md:py-4 px-4 pt-4">
         <img
             src="${itemMap[claim.itemId]?.imageUrl ? itemMap[claim.itemId].imageUrl : "/assets/image-unavailable.png"}"
             alt="Item Image"
