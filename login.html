@@ -27,11 +27,11 @@
     class="bg-[#121212] text-white min-h-screen w-full h-full flex items-center justify-center"
   >
     <div
-      class="flex flex-row p-4 w-[40vw] h-[70vh] bg-[#1e1e1e] self-center justify-center align-center rounded-xl border border-[#262626]"
+      class="flex flex-row p-4 md:w-[500px] md:h-[600px] mx-4 bg-[#1e1e1e] self-center justify-center align-center rounded-xl border border-[#262626]"
     >
       <div class="flex flex-row w-[1px]"></div>
-      <div class="flex flex-col w-[calc(100%-1px)] gap-4 justify-center p-10">
-        <div class="text-[32px] font-[600]">Administrator Login</div>
+      <div class="flex flex-col w-[calc(100%-1px)] gap-4 justify-center md:p-10 p-0">
+        <div class="md:text-[32px] text-2xl font-[600]">Administrator Login</div>
         <a href="index.html" class="text-sm text-[#9CA3AF]"
           >Not an administrator? Return to home</a
         >
@@ -40,17 +40,17 @@
             type="text"
             id="admin-email"
             placeholder="Email"
-            class="placeholder-[#6D727F] h-11 text-white text-[16px] border border-[#404040] p-2 bg-[#121212] rounded-xl"
+            class="placeholder-[#6D727F] md:h-11 h-9 text-white md:text-[16px] text-sm border border-[#404040] p-2 bg-[#121212] rounded-xl"
           />
           <input
             type="password"
             id="admin-password"
             placeholder="Password"
-            class="placeholder-[#6D727F] h-11 text-white text-[16px] border border-[#404040] p-2 bg-[#121212] rounded-xl"
+            class="placeholder-[#6D727F] md:h-11 h-9 text-white md:text-[16px] text-sm border border-[#404040] p-2 bg-[#121212] rounded-xl"
           />
           <button
             id="submit"
-            class="w-[80%] h-11 mt-12 flex self-center items-center justify-center text-black text-center bg-white border rounded-xl"
+            class="w-[80%] md:h-11 h-9 mt-12 md:text-[16px] text-sm flex self-center items-center justify-center text-black text-center bg-white border rounded-xl"
           >
             Login
           </button>

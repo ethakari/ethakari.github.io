@@ -18,6 +18,7 @@ import {
 
 let currentView = "items";
 let allItems = [];
+let itemListView = [];
 let itemMap = {};
 let allClaims = [];
 let pendingClaims = [];
@@ -98,12 +99,51 @@ async function deleteClaim(claimId) {
   loadClaims("pending");
 }
 
+async function approveClaim(claim) {
+  // 1. Approve the claim
+  await updateDoc(doc(db, "claimId", claim.id), {
+    status: "approved",
+  });
+
+  // 2. Mark the item as claimed
+  await updateDoc(doc(db, "itemId", claim.itemId), {
+    status: "claimed",
+  });
+
+  // 3. Reject all other pending claims for the same item
+  const claimsRef = collection(db, "claimId");
+  const snapshot = await getDocs(claimsRef);
+
+  const updates = [];
+  snapshot.forEach((docSnap) => {
+    const c = docSnap.data();
+    if (
+      c.itemId === claim.itemId &&
+      c.status === "pending" &&
+      docSnap.id !== claim.id
+    ) {
+      updates.push(
+        updateDoc(doc(db, "claimId", docSnap.id), {
+          status: "rejected",
+        }),
+      );
+    }
+  });
+
+  await Promise.all(updates);
+
+  // 4. Refresh UI
+  await loadItems();
+  await loadClaims("pending");
+}
+
 async function loadItems() {
   const itemsRef = collection(db, "itemId");
   const q = query(itemsRef, orderBy("dateFound", "desc"));
   const snapshot = await getDocs(q);
 
   allItems = [];
+  itemListView = [];
   itemMap = {};
 
   snapshot.forEach((doc) => {
@@ -113,10 +153,14 @@ async function loadItems() {
     };
 
     allItems.push(item);
+
+    if(item.status !== "claimed") {
+      itemListView.push(item);
+    }
     itemMap[item.id] = item;
   });
 
-  renderItems(allItems);
+  renderItems(itemListView);
 }
 
 async function loadClaims(status) {
@@ -126,7 +170,6 @@ async function loadClaims(status) {
   allClaims = [];
   pendingClaims = [];
   historyClaims = [];
-
 
   snapshot.forEach((doc) => {
     const claim = {
@@ -144,12 +187,11 @@ async function loadClaims(status) {
     }
   });
 
-  if(status === "pending") {
+  if (status === "pending") {
     renderClaims(pendingClaims);
   } else {
     renderHistory(historyClaims);
   }
-  
 }
 
 function renderItems(items) {
@@ -168,7 +210,7 @@ function renderItems(items) {
   sortedItems.forEach((item) => {
     const div = document.createElement("div");
     div.className =
-      "flex flex-row h-fit bg-[#1e1e1e] rounded-xl border border-[#333333]";
+      "flex md:flex-row flex-col h-fit bg-[#1e1e1e] rounded-xl border border-[#333333] align-center";
 
     div.dataset.itemId = item.id;
 
@@ -177,17 +219,17 @@ function renderItems(items) {
       : "/assets/image-unavailable.png";
 
     div.innerHTML = `
-    <div class="flex flex-col w-[160px] justify-center align-center items-center">
+    <div class="flex flex-col md:w-[160px] w-[250px] justify-center align-center items-center md:p-0 px-4 pt-4">
         <img
             src="${imageSrc}"
             alt="Item Image"
-            class="w-[128px] h-[128px] rounded-xl border border-[#333333]"
+            class="md:w-[128px] md:h-[128px] w-50 h-50 rounded-xl border border-[#333333]"
         />
     </div>
-    <div class="flex flex-col pt-4 pb-4 gap-2 w-[calc(100%-240px)]"> 
+    <div class="flex flex-col md:pt-4 md:pb-4 p-4 gap-2 md:w-[calc(100%-240px)] w-full"> 
         <div class="text-lg font-[500] text-white">${formatForDisplay(item.name)}</div>
-        <div class="text-sm text-[#9CA3AF]">${formatForDisplay(item.description)}</div>
-        <div class="flex flex-row gap-4">
+        <div class="text-sm text-[#9CA3AF] md:mb-0 mb-6">${formatForDisplay(item.description)}</div>
+        <div class="flex md:flex-row flex-col md:gap-4 gap-2">
             <div class="flex w-[66%] text-[12px] text-[#9CA3AF]">Tags: ${item.tags.join(", ")}</div>
             <div class="flex w-[66%] text-[12px] text-[#9CA3AF]">Location: ${formatForDisplay(item.location)}</div>
             <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Date Found: ${item.dateFound.toDate().toLocaleDateString("en-US")}</div>
@@ -231,8 +273,8 @@ function renderItems(items) {
 
     if (item.status === "claimed") {
       actionsContainer.innerHTML = `
-        <button class="px-3 py-1 text-sm rounded bg-[#16A34A]">Restore</button>
-        <button class="px-3 py-1 text-sm rounded bg-[#DC2626]">Delete</button>
+        <button class="py-1 w-[140px] text-sm rounded-lg bg-[#16A34A]">Restore</button>
+        <button class="py-1 w-[140px] text-sm rounded-lg bg-[#DC2626]">Delete</button>
       `;
 
       actionsContainer.children[0].onclick = () =>
@@ -244,7 +286,7 @@ function renderItems(items) {
     container.appendChild(div);
   });
   foundItemsCount = items.length;
-  itemsTab.textContent = "Listed and Pending Items (" + foundItemsCount + ")";
+  itemsTab.textContent = "Items (" + foundItemsCount + ")";
   pendingItemElement.textContent = pendingItemCount;
   listedItemElement.textContent = listedItemCount;
 }
@@ -257,29 +299,29 @@ function renderClaims(claims) {
   claims.forEach((claim) => {
     const div = document.createElement("div");
     div.className =
-      "flex flex-row h-fit bg-[#1e1e1e] rounded-xl border border-[#333333]";
+      "flex md:flex-row flex-col h-fit bg-[#1e1e1e] rounded-xl border border-[#333333]";
 
     div.dataset.claimId = claim.id;
 
     div.innerHTML = `
-    <div class="flex flex-col w-[160px] justify-center align-center items-center">
+    <div class="flex flex-col md:w-[160px] w-[250px] justify-center align-center items-center md:p-0 px-4 pt-4">
         <img
             src="${itemMap[claim.itemId]?.imageUrl ? itemMap[claim.itemId].imageUrl : "/assets/image-unavailable.png"}"
             alt="Item Image"
-            class="w-[128px] h-[128px] rounded-xl border border-[#333333]"
+            class="md:w-[128px] md:h-[128px] w-50 h-50 rounded-xl border border-[#333333]"
         />
     </div>
-    <div class="flex flex-col pt-4 pb-4 gap-2 w-[calc(100%-240px)]"> 
+    <div class="flex flex-col md:pt-4 md:pb-4 p-4 gap-2 md:w-[calc(100%-240px)] w-full"> 
         <div class="text-lg font-[500] text-white">${formatForDisplay(claim.itemName)}</div>
-        <div class="flex flex-row gap-2">
-          <div class="text-sm w-[33%] text-[#9CA3AF]">Claimer: ${formatForDisplay(claim.claimer)}</div>
-          <div class="text-sm w-[33%] text-[#9CA3AF]">Contact Information: ${claim?.phone ? claim.phone + " | " + claim.email : claim.email}</div>
+        <div class="flex md:flex-row flex-col gap-2 md:mb-0 mb-6">
+          <div class="text-sm md:w-[33%] w-full text-[#9CA3AF]">Claimer: ${formatForDisplay(claim.claimer)}</div>
+          <div class="text-sm md:w-[33%] w-full text-[#9CA3AF]">Contact Information: ${claim?.phone ? claim.phone + " | " + claim.email : claim.email}</div>
         </div>
         
-        <div class="flex flex-row gap-4">
-            <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Submission Date: ${claim.submittedOn.toDate().toLocaleDateString("en-US")}</div>
-            <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Proof: ${formatForDisplay(claim.proof)}</div>
-            <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Item ID: ${claim.itemId}</div>
+        <div class="flex md:flex-row flex-col gap-4">
+            <div class="flex md:w-[33%] w-full text-[12px] text-[#9CA3AF]">Submission Date: ${claim.submittedOn.toDate().toLocaleDateString("en-US")}</div>
+            <div class="flex md:w-[33%] w-full text-[12px] text-[#9CA3AF]">Proof: ${formatForDisplay(claim.proof)}</div>
+            <div class="flex md:w-[33%] w-full text-[12px] text-[#9CA3AF]">Item ID: ${claim.itemId}</div>
         </div>
         <div class="flex flex-row gap-4 mt-2" data-actions></div>
     </div>
@@ -301,11 +343,10 @@ function renderClaims(claims) {
         <button class="py-1 w-[100px] text-sm rounded-lg bg-[#DC2626]">Reject</button>
       `;
 
-      actionsContainer.children[0].onclick = () =>
-        updateClaimStatus(claim.id, "approved");
+      actionsContainer.children[0].onclick = () => approveClaim(claim);
 
-      actionsContainer.children[1].onclick = () =>
-        updateClaimStatus(claim.id, "rejected");
+      actionsContainer.children[1].onclick = async () =>
+        await updateClaimStatus(claim.id, "rejected");
     }
     container.appendChild(div);
   });
@@ -320,29 +361,29 @@ function renderHistory(claims) {
   claims.forEach((claim) => {
     const div = document.createElement("div");
     div.className =
-      "flex flex-row h-fit bg-[#1e1e1e] rounded-xl border border-[#333333]";
+      "flex md:flex-row flex-col h-fit bg-[#1e1e1e] rounded-xl border border-[#333333]";
 
     div.dataset.claimId = claim.id;
 
     div.innerHTML = `
-    <div class="flex flex-col w-[160px] py-4 justify-center align-center items-center">
+    <div class="flex flex-col md:w-[160px] w-[250px] justify-center align-center items-center md:p-0 px-4 pt-4">
         <img
             src="${itemMap[claim.itemId]?.imageUrl ? itemMap[claim.itemId].imageUrl : "/assets/image-unavailable.png"}"
             alt="Item Image"
-            class="w-[128px] h-[128px] rounded-xl border border-[#333333]"
+            class="md:w-[128px] md:h-[128px] w-50 h-50 rounded-xl border border-[#333333]"
         />
     </div>
-    <div class="flex flex-col pt-4 pb-4 gap-2 w-[calc(100%-240px)]"> 
+    <div class="flex flex-col md:pt-4 md:pb-4 p-4 gap-2 md:w-[calc(100%-240px)] w-full"> 
         <div class="text-lg font-[500] text-white">${formatForDisplay(claim.itemName)}</div>
-        <div class="flex flex-row gap-2">
-          <div class="text-sm w-[33%] text-[#9CA3AF]">Claimer: ${formatForDisplay(claim.claimer)}</div>
+        <div class="flex md:flex-row flex-col gap-2 md:mb-0 mb-6">
+          <div class="text-sm md:w-[33%] w-full text-[#9CA3AF]">Claimer: ${formatForDisplay(claim.claimer)}</div>
           <div class="text-sm w-[33%] text-[#9CA3AF]">Contact Information: ${claim?.phone ? claim.phone + " | " + claim.email : claim.email}</div>
         </div>
         
-        <div class="flex flex-row gap-4">
-            <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Submission Date: ${claim.submittedOn.toDate().toLocaleDateString("en-US")}</div>
-            <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Proof: ${formatForDisplay(claim.proof)}</div>
-            <div class="flex w-[33%] text-[12px] text-[#9CA3AF]">Item ID: ${claim.itemId}</div>
+        <div class="flex md:flex-row flex-col gap-4">
+            <div class="flex md:w-[33%] w-full text-[12px] text-[#9CA3AF]">Submission Date: ${claim.submittedOn.toDate().toLocaleDateString("en-US")}</div>
+            <div class="flex md:w-[33%] w-full text-[12px] text-[#9CA3AF]">Proof: ${formatForDisplay(claim.proof)}</div>
+            <div class="flex md:w-[33%] w-full text-[12px] text-[#9CA3AF]">Item ID: ${claim.itemId}</div>
         </div>
     </div>
     <div class="text-[12px] text-[#9CA3AF] p-4">

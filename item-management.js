@@ -206,13 +206,14 @@ function openModal(itemId) {
   document.getElementById("item-date").textContent = item.dateFound
     .toDate()
     .toLocaleDateString("en-US");
-
+  document.body.classList.add("overflow-hidden");
   modal.classList.remove("hidden");
 }
 
 document.querySelectorAll(".close-modal").forEach((btn) => {
   btn.addEventListener("click", () => {
     modal.classList.add("hidden");
+    document.body.classList.remove("overflow-hidden");
   });
 });
 

@@ -55,8 +55,8 @@
     </nav>
 
     <!-- Page Content -->
-    <main class="md:w-auto md:mx-auto md:p-6 md:ml-16 m-0 p-10">
-      <div class="flex flex-col items-center p-4">
+    <main class="md:w-auto md:mx-auto md:p-6 md:ml-16 m-0 md:p-10 p-0">
+      <div class="flex flex-col items-center p-4 md:mb-0 mb-20">
         <div
           class="flex flex-col gap-6 max-w-[88%] bg-[#121212] w-full p-0 md:p-10"
         >
@@ -97,13 +97,13 @@
               Log out
             </button>
           </div>
-          <p class="flex text-4xl pt-4 font-[600]">Admin Dashboard</p>
+          <p class="flex md:text-4xl text-3xl pt-4 font-[600]">Admin Dashboard</p>
           <p class="flex text-[#9EA3AE]">
             Manage found items and claim requests
           </p>
-          <div class="flex flex-row gap-4">
+          <div class="flex md:flex-row flex-col gap-4">
             <div
-              class="flex flex-row justify-between w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
+              class="flex flex-row justify-between md:w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
             >
               <div id="pending-items" class="flex text-[30px] font-[600]">
                 0
@@ -120,7 +120,7 @@
               </div>
             </div>
             <div
-              class="flex flex-row justify-between w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
+              class="flex flex-row justify-between md:w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
             >
               <div id="listed-items" class="flex text-[30px] font-[600]">0</div>
               <div class="flex flex-row h-10 self-center items-center">
@@ -135,7 +135,7 @@
               </div>
             </div>
             <div
-              class="flex flex-row justify-between w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
+              class="flex flex-row justify-between md:w-[33%] bg-[#1e1e1e] p-6 border border-[#333333] rounded-xl"
             >
               <div id="pending-claims" class="flex text-[30px] font-[600]">
                 0
@@ -153,23 +153,23 @@
             </div>
           </div>
           <div
-            class="flex flex-row px-1 items-center justify-center gap-2 bg-[#1e1e1e] rounded-xl h-[46px]"
+            class="flex flex-row px-1 items-center justify-center gap-2 bg-[#1e1e1e] rounded-xl md:h-[46px] h-[96px]"
           >
             <button
               id="items-tab"
-              class="flex text-[16px] items-center justify-center bg-[#262626] border border-[#404040] rounded-xl h-9 w-[33%]"
+              class="flex text-[16px] items-center justify-center bg-[#262626] border border-[#404040] rounded-xl md:h-9 h-[88px] w-[33%]"
             >
-              Listed and Pending Items (X)
+              Items (X)
             </button>
             <button
               id="claims-tab"
-              class="flex text-[16px] text-[#9EA3AE] items-center justify-center rounded-xl h-9 w-[33%]"
+              class="flex text-[16px] text-[#9EA3AE] items-center justify-center rounded-xl md:h-9 h-[88px] w-[33%]"
             >
               Claim Requests (Y)
             </button>
             <button
               id="history-tab"
-              class="flex text-[16px] text-[#9EA3AE] items-center justify-center rounded-xl h-9 w-[33%]"
+              class="flex text-[16px] text-[#9EA3AE] items-center justify-center rounded-xl md:h-9 h-[88px] w-[33%]"
             >
               Claim History
             </button>
